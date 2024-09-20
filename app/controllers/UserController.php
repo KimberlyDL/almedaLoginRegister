@@ -9,7 +9,7 @@ class UserController extends Controller
         parent::__construct();
         $this->crud = lava_instance();
         $this->call->model('User_model');
-
+        $this->call->library('Form_validation');
     }
 
     public function index()
@@ -21,15 +21,6 @@ class UserController extends Controller
     public function create()
     {
         $this->call->view('user/create');
-    }
-
-    public function a()
-    {
-        $this->call->view('a');
-    }
-    public function b()
-    {
-        $this->call->view('b');
     }
 
     public function site()
@@ -68,11 +59,11 @@ class UserController extends Controller
                     'address' => $this->io->post['address']
                 );
 
-                //$this->User_model->insert($data);
+                $this->User_model->insert($data);
                 redirect('user/success');
             } else {
-                //$this->session->set_flashdata('errors', $this->form_validation->error());
-                // echo $this->form_validation->error();
+                $this->session->set_flashdata('errors', $this->form_validation->error());
+                //echo $this->form_validation->error();
                 redirect('user/create');
             }
         }
