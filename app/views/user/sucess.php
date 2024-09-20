@@ -39,7 +39,7 @@
     <div class="container mt-4">
         <div class="row align-items-center d-flex"> <!-- Center align content vertically -->
             <div class="col-md-5">
-                <form action="<?= site_url('error'); ?>" method="POST">
+                <form action="<?= site_url('insert'); ?>" method="post">
                     <div class="mb-3">
                         <label for="lname" class="form-label">Last name:</label>
                         <input type="text" class="form-control" id="lname" name="lname">
