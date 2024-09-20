@@ -3,117 +3,68 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
 
 class UserController extends Controller
 {
+    private $notification;
 
     public function __construct()
     {
         parent::__construct();
-        $this->crud = lava_instance();
         $this->call->model('User_model');
-        $this->call->library('Form_validation');
     }
-
-    public function index()
-    {
-        $data['users'] = $this->User_model->getUsers();
-        $this->call->view('index', $data);
-    }
-
     public function create()
     {
         $this->call->view('user/create');
     }
-
-    public function site()
+    public function index()
     {
-        echo site_url('error');
+        $data = $this->User_model->getUsers();
+        $this->call->view('user/index',['users' => $data]);
     }
 
-    public function post()
+    public function store()
     {
-        if ($this->form_validation->submitted()) {
-            $this->form_validation
-                ->name('fname')
-                ->required()
-                ->min_length(2)
-                ->max_length(30)
-                ->name('lname')
-                ->required()
-                ->min_length(1)
-                ->max_length(30)
-                ->name('email')
-                ->valid_email()
-                ->name('gender')
-                ->required()
-                ->min_length(1)
-                ->name('address')
-                ->required()
-                ->min_length(5)
-                ->max_length(200);
+        $data = array(
+            'lname' => $_POST['lname'],
+            'fname' => $_POST['fname'],
+            'email' => $_POST['email'],
+            'gender' => $_POST['gender'],
+            'address' => $_POST['address']
+        );
+        $isUserAdded = $this->User_model->insert($data);
 
-            if ($this->form_validation->run()) {
-                $data = array(
-                    'lname' => $this->io->post['lname'],
-                    'fname' => $this->io->post['fname'],
-                    'email' => $this->io->post['email'],
-                    'gender' => $this->io->post['gender'],
-                    'address' => $this->io->post['address']
-                );
-
-                $this->User_model->insert($data);
-                redirect('user/success');
-            } else {
-                $this->session->set_flashdata('errors', $this->form_validation->error());
-                //echo $this->form_validation->error();
-                redirect('user/create');
-            }
-        }
+        $this->call->view('user/index', ['users' => $this->User_model->getUsers()]);
     }
 
     public function delete($data)
     {
         $this->User_model->delete($data);
-        redirect('/success');
+        redirect('/');
     }
 
-    public function editset($id)
+    public function edit($id)
     {
-        $data['users'] = $this->User_model->editset($id);
-        $this->call->view("edit", $data);
+        $user['user'] = $this->User_model->getUser($id);
+        $this->call->view('user/edit',$user);
     }
-    public function edit()
+
+    public function show($id)
     {
-        if ($this->form_validation->submitted()) {
-            $this->form_validation
-                ->name('id')
-                ->required()
-                ->name('username')
-                ->required()
-                ->min_length(5)
-                ->max_length(20)
-                ->name('email')
-                ->valid_email()
-                ->name('password')
-                ->required()
-                ->min_length(5)
-                ->name('repassword')
-                ->matches('password')
-                ->required()
-                ->min_length(5);
-
-            if ($this->form_validation->run()) {
-                $id = $this->io->post('id');
-                $username = $this->io->post('username');
-                $email = $this->io->post('email');
-                $password = md5($this->io->post('password'));
-
-                $this->User_model->edit($id, $username, $email, $password);
-                redirect('');
-
-            } else {
-                echo $this->form_validation->error();
-            }
-        }
+        $user['user'] = $this->User_model->getUser($id);
+        $this->call->view('user/show',$user);
     }
 
+    public function patch($id)
+    {
+        $data = [
+			'knidl_first_name' => $_POST['knidl_first_name'],
+			'knidl_last_name' => $_POST['knidl_last_name'],
+			'knidl_email' => $_POST['knidl_email'],
+			'knidl_gender' => $_POST['knidl_gender'],
+			'knidl_address' => $_POST['knidl_address'],
+		];
+	
+		if ($this->User_model->update($id, $data)) {
+			redirect('/'); 
+		} 
+    }
 }
 ?>

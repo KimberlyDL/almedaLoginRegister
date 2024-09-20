@@ -38,31 +38,7 @@
     <?php endif; ?>
     <div class="container mt-4">
         <div class="row align-items-center d-flex"> <!-- Center align content vertically -->
-            <div class="col-md-5">
-                <form action="<?= site_url('insert'); ?>" method="post">
-                    <div class="mb-3">
-                        <label for="lname" class="form-label">Last name:</label>
-                        <input type="text" class="form-control" id="lname" name="lname">
-                    </div>
-                    <div class="mb-3">
-                        <label for="fname" class="form-label">First name:</label>
-                        <input type="text" class="form-control" id="fname" name="fname">
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email:</label>
-                        <input type="email" class="form-control" id="email" name="email">
-                    </div>
-                    <div class="mb-3">
-                        <label for="gender" class="form-label">Gender:</label>
-                        <input type="text" class="form-control" id="gender" name="gender">
-                    </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Address:</label>
-                        <input type="text" class="form-control" id="address" name="address">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
+            <div>Success</div>
         </div>
     </div>
 </body>

@@ -25,21 +25,10 @@
 </head>
 
 <body>
-    <?php if (!empty($_SESSION['errors'])): ?>
-        <div class="alert alert-danger" role="alert">
-            <strong class="font-weight-bold">Error!</strong>
-            <span class="d-block">
-                <?php
-                $errorMessages = is_array($_SESSION['errors']) ? $_SESSION['errors'] : [$_SESSION['errors']];
-                echo implode('<br>', $errorMessages);
-                ?>
-            </span>
-        </div>
-    <?php endif; ?>
     <div class="container mt-4">
         <div class="row align-items-center d-flex"> <!-- Center align content vertically -->
             <div class="col-md-5">
-                <form action="<?= site_url('insert'); ?>" method="POST">
+                <form action="<?= site_url('/user/insert'); ?>" method="POST">
                     <div class="mb-3">
                         <label for="lname" class="form-label">Last name:</label>
                         <input type="text" class="form-control" id="lname" name="lname">
@@ -53,14 +42,20 @@
                         <input type="email" class="form-control" id="email" name="email">
                     </div>
                     <div class="mb-3">
-                        <label for="gender" class="form-label">Gender:</label>
-                        <input type="text" class="form-control" id="gender" name="gender">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select class="form-select" id="gender" name="gender" required>
+                            <option value="" disabled selected>Select gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Address:</label>
                         <input type="text" class="form-control" id="address" name="address">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
+                    <a href="/" class="btn btn-secondary">Cancel</a>
                 </form>
             </div>
         </div>

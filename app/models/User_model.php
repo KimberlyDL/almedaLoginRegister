@@ -32,23 +32,18 @@ class User_model extends Model {
         $this->db->table('knidl_users')->insert($data);
     }
 
-    public function update()
-    {
-        $bind = array(
-            'knidl_last_name' => $this->io->post['lname'],
-            'knidl_first_name'  => $this->io->post['fname'],
-            'knidl_email' => $this->io->post['email'],
-            'knidl_gender' => $this->io->post['gender'],
-            'knidl_address' => $this->io->post['address'],
-        );
-
-        $this->db->table('knidl_users')->where('id', $this->io->post('id'))->update($bind);
+    public function getUser($id) {
+        return $this->db->table('knidl_users')->where('id', $id)->get();
     }
 
-    public function delete()
+    public function update($id, $data) 
     {
-        $this->db->table('table')->where('id', $this->io->post('id'))->delete();
+        return $this->db->table('knidl_users')->where('id', $id)->update($data);
     }
 
+    public function delete($id)
+    {
+        return $this->db->table('knidl_users')->where('id', $id)->delete();
+    }
 
 }

@@ -43,13 +43,11 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 |
 */
 
-$router->get('create', 'Welcome::index');
-$router->get('/', 'UserController::create');
-// $router->match('insert', 'UserController::post', 'GET|POST');
-$router->post('insert', 'UserController::post');
-$router->get('a', 'UserController::a');
-$router->get('b', 'UserController::b');
-$router->get('site','UserController::site');
-$router->get('edit/(:num)', 'UserController::edit');
-$router->get('delete/(:num)', 'UserController::delete');
-$router->match('edit', 'UserController::patch', 'GET|POST');
+
+$router->get('/', 'UserController::index');
+$router->get('user/create', 'UserController::create');
+$router->post('user/insert', 'UserController::store');
+$router->get('user/edit/{id}', 'UserController::edit');
+$router->post('user/update/{id}', 'UserController::patch');
+$router->get('user/delete/{id}', 'UserController::delete');
+$router->get('user/{id}', 'UserController::show');
