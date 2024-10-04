@@ -3,11 +3,11 @@ defined('PREVENT_DIRECT_ACCESS') or exit('No direct script access allowed');
 
 class UserController extends Controller
 {
-    private $notification;
 
     public function __construct()
     {
         parent::__construct();
+				
         $this->call->model('User_model');
     }
     public function create()

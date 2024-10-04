@@ -27,7 +27,7 @@
 <body>
     <?php if (!empty($_SESSION['errors'])): ?>
         <div class="alert alert-danger" role="alert">
-            <strong class="font-weight-bold">Error!</strong>
+            <strong class="font-weight-bold">Successs!</strong>
             <span class="d-block">
                 <?php
                 $errorMessages = is_array($_SESSION['errors']) ? $_SESSION['errors'] : [$_SESSION['errors']];

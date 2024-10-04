@@ -43,7 +43,6 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 |
 */
 
-
 $router->get('/', 'UserController::index');
 $router->get('user/create', 'UserController::create');
 $router->post('user/insert', 'UserController::store');
@@ -51,3 +50,4 @@ $router->get('user/edit/{id}', 'UserController::edit');
 $router->post('user/update/{id}', 'UserController::patch');
 $router->get('user/delete/{id}', 'UserController::delete');
 $router->get('user/{id}', 'UserController::show');
+$router->get('email', 'RegisterUserController::send');

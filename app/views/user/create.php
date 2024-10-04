@@ -25,8 +25,8 @@
 </head>
 
 <body>
-    <div class="container mt-4">
-        <div class="row align-items-center d-flex"> <!-- Center align content vertically -->
+    <div class="container-md vh-100 d-flex justify-content-center align-items-center">
+        <div class="container-md row justify-content-center">
             <div class="col-md-5">
                 <form action="<?= site_url('/user/insert'); ?>" method="POST">
                     <div class="mb-3">
