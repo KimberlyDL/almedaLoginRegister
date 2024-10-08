@@ -66,5 +66,34 @@ class UserController extends Controller
 			redirect('/'); 
 		} 
     }
+    public function uploadForm()
+    {
+        return $this->call->view('upload');
+    }
+    public function upload()
+    {
+        $this->call->library('upload', $_FILES["userfile"]);
+        $this->upload
+            ->set_dir('public')
+            ->allowed_extensions(array('jpg'))
+            ->allowed_mimes(array('image/jpeg'))
+            ->is_image();
+        if ($this->upload->do_upload()) {
+            $data['filename'] = $this->upload->get_filename();
+            $name = $this->io->post('name');
+            $recepient_email = $this->io->post('email');
+            $subject = $this->io->post('subject');
+            $content = $this->io->post('content');
+            $path = realpath(__DIR__ . '/../../public/' . $this->upload->get_filename());
+            $this->sendAttatchedEmail($name, $recepient_email, $subject, $content, $path);
+            $this->call->view('upload_success', $data);
+        } else {
+            $data['errors'] = $this->upload->get_errors();
+            $this->call->view('upload_form', $data);
+        }
+    }
+
+
+
 }
 ?>

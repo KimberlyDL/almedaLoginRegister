@@ -6,19 +6,122 @@ class RegisterUserController extends Controller
     public function __construct()
     {
         parent::__construct();
+        $this->call->helper('url');
+        $this->call->library('session');
         $this->call->library('email');
+        $this->call->model('Client_model', 'Client');
     }
-    public function send()
+
+    public function index()
     {
-        $this->email->sender('deleon.kimberlynicole.9@gmail.com', 'Kimberly Nicole');
-        $this->email->recipient('1d3.de.leon.kimberly.nicole.i@example.com');
+        $this->call->view('register');
+    }
 
-        $this->email->subject('Email Test');
-        $this->email->email_content('Testing the email class.');
+    public function post()
+    {
+        // retrieve form input values
+        $name = $this->io->post('name');
+        $email = $this->io->post('email');
+        $password = $this->io->post('password');
 
-        $this->email->send();
+        $data = array(
+            "name" => $name,
+            "email" => $email,
+            "password" => password_hash($password, PASSWORD_DEFAULT),
+        );
+        $this->Client->insert($data);
+
+        $client = $this->Client->getUserByEmail($email);
+
+        if ($client) {
+
+            $otp = $this->Client->generateOTP($client['id']);
+
+            $subject = "Email Verification OTP - LavaLust 4";
+            $content = "
+                <html>
+                <head>
+                    <style>
+                        body { font-family: Arial, sans-serif; }
+                        .container { padding: 20px; }
+                        .otp { font-size: 18px; font-weight: bold; color: #2c3e50; }
+                        .signature { margin-top: 30px; }
+                    </style>
+                </head>
+                <body>
+                    <div class='container'>
+                        <p>Dear {$client['knidl_name']},</p>
+                        <p>We hope this message finds you well.</p>
+                        <p>To complete your email verification, please use the following One-Time Password (OTP):</p>
+                        <p class='otp'>{$otp}</p>
+                        <p>This OTP is valid for the next 15 minutes. Please do not share this code with anyone.</p>
+                        <p>If you did not request this verification, kindly disregard this message.</p>
+                        <div class='signature'>
+                            <p>Thank you for choosing LavaLust 4.</p>
+                            <p>Warm regards,<br><strong>LavaLust Support Team</strong><br>Your Company Name<br>Company Address<br>Contact Information</p>
+                        </div>
+                    </div>
+                </body>
+                </html>
+            ";
+
+            $this->sendEmailVerification($client['knidl_email'], $subject, $content);
         
-        $this->call->view('user/success');
+            $this->session->set_userdata('user_id_for_verification', $client['id']);
+        
+            // // Show unverified view
+            // $data['email'] = $client['email'];
+            $this->call->view('verifyEmail');
+            return;
+        }
+
+    }
+
+
+    public function otpVerification() {
+        $this->call->view('verifyEmail');
+        return;
+    }
+
+    public function verifyAccount()
+    {
+        $userId = $this->session->userdata('user_id_for_verification');
+        $otp = $this->io->post('otp');
+
+        if ($this->Client->verifyOTP($userId, $otp)) {
+            $this->session->unset_userdata('user_id_for_verification');
+
+            $data['success'] = 'Your account has been successfully created! You may now log in using your credentials.';
+            $this->call->view('successmessage', $data);
+        } else {
+            $data['error'] = 'Invalid or expired OTP. Please try again.';
+            //$this->call->view('enter_otp', $data);
+            //redirect('otp', $data);
+            $this->call->view('verifyEmail', $data);
+            return;
+        }
+    }
+
+    public function sendEmailVerification($recepient_email,$subject,$content)
+    {
+       
+        $this->email->sender('deleon.kimberlynicole.9@gmail.com', 'Lavalust');
+        $this->email->recipient($recepient_email);
+        $this->email->subject($subject);
+        $this->email->email_content($content,"html");
+        $this->email->send();
+    }
+
+    public function sendAttatchedEmail($name,$recepient_email,$subject,$content,$path)
+    {
+    
+        $fullContent = "Hello, <br><br>This is a sample email.<br>These are the email's contents: <br>" . $content;
+        $this->email->sender($this->session->userdata('email'), $name);
+        $this->email->recipient($recepient_email);
+        $this->email->subject($subject);
+        $this->email->email_content($fullContent,'html');
+        $this->email->attachment($path);
+        $this->email->send();
     }
 }
 ?>

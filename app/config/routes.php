@@ -43,7 +43,7 @@ defined('PREVENT_DIRECT_ACCESS') OR exit('No direct script access allowed');
 |
 */
 
-$router->get('/', 'UserController::index');
+$router->get('home', 'UserController::index');
 $router->get('user/create', 'UserController::create');
 $router->post('user/insert', 'UserController::store');
 $router->get('user/edit/{id}', 'UserController::edit');
@@ -51,3 +51,15 @@ $router->post('user/update/{id}', 'UserController::patch');
 $router->get('user/delete/{id}', 'UserController::delete');
 $router->get('user/{id}', 'UserController::show');
 $router->get('email', 'RegisterUserController::send');
+
+$router->get('register', 'RegisterUserController::index');
+$router->post('register', 'RegisterUserController::post');
+
+$router->get('/', 'AuthSessionController::index');
+$router->post('login', 'AuthSessionController::auth');
+
+$router->get('upload', 'UserController::uploadForm');
+$router->post('upload', 'UserController::upload');
+
+$router->get('otp', 'RegisterUserController::otpVerification');
+$router->post('verifyaccount', 'RegisterUserController::verifyAccount');
