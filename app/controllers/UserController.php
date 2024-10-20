@@ -68,7 +68,7 @@ class UserController extends Controller
     }
     public function uploadForm()
     {
-        return $this->call->view('upload');
+        return $this->call->view('user/upload');
     }
     public function upload()
     {
@@ -86,14 +86,29 @@ class UserController extends Controller
             $content = $this->io->post('content');
             $path = realpath(__DIR__ . '/../../public/' . $this->upload->get_filename());
             $this->sendAttatchedEmail($name, $recepient_email, $subject, $content, $path);
-            $this->call->view('upload_success', $data);
+            $this->call->view('successUpload', $data);
         } else {
             $data['errors'] = $this->upload->get_errors();
-            $this->call->view('upload_form', $data);
+            $this->call->view('user/upload', $data);
         }
     }
+    public function logout()
+    {
+        $this->session->sess_destroy();
+        redirect('');
+    }
 
+    public function sendAttatchedEmail($name, $recepient_email, $subject, $content, $path)
+    {
 
+        $fullContent = "Hello, <br><br>This is a sample email.<br>These are the email's contents: <br>" . $content;
+        $this->email->sender($this->session->userdata('email'), $name);
+        $this->email->recipient($recepient_email);
+        $this->email->subject($subject);
+        $this->email->email_content($fullContent, 'html');
+        $this->email->attachment($path);
+        $this->email->send();
+    }
 
 }
 ?>

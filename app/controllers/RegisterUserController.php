@@ -19,7 +19,6 @@ class RegisterUserController extends Controller
 
     public function post()
     {
-        // retrieve form input values
         $name = $this->io->post('name');
         $email = $this->io->post('email');
         $password = $this->io->post('password');
@@ -95,8 +94,7 @@ class RegisterUserController extends Controller
             $this->call->view('successmessage', $data);
         } else {
             $data['error'] = 'Invalid or expired OTP. Please try again.';
-            //$this->call->view('enter_otp', $data);
-            //redirect('otp', $data);
+
             $this->call->view('verifyEmail', $data);
             return;
         }
@@ -109,18 +107,6 @@ class RegisterUserController extends Controller
         $this->email->recipient($recepient_email);
         $this->email->subject($subject);
         $this->email->email_content($content,"html");
-        $this->email->send();
-    }
-
-    public function sendAttatchedEmail($name,$recepient_email,$subject,$content,$path)
-    {
-    
-        $fullContent = "Hello, <br><br>This is a sample email.<br>These are the email's contents: <br>" . $content;
-        $this->email->sender($this->session->userdata('email'), $name);
-        $this->email->recipient($recepient_email);
-        $this->email->subject($subject);
-        $this->email->email_content($fullContent,'html');
-        $this->email->attachment($path);
         $this->email->send();
     }
 }

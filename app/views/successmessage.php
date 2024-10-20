@@ -37,7 +37,7 @@
                                 <?php endif; ?>
 
                                 <div class="d-flex justify-content-center">
-                                    <a href="<?= site_url('login'); ?>"
+                                    <a href="<?= site_url('/'); ?>"
                                         class="btn btn-success btn-lg gradient-custom-4 text-body">
                                         Go to Login
                                     </a>

@@ -85,7 +85,7 @@ class AuthSessionController extends Controller
                 $this->session->set_userdata('email', $client['knidl_email']);
                 $data['email'] = $this->session->userdata('email');
 
-                redirect('home');
+                redirect('upload');
                 //$this->call->view('home', $data);
                 return;
             }

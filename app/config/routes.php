@@ -56,7 +56,10 @@ $router->get('register', 'RegisterUserController::index');
 $router->post('register', 'RegisterUserController::post');
 
 $router->get('/', 'AuthSessionController::index');
+$router->get('login', 'AuthSessionController::index');
 $router->post('login', 'AuthSessionController::auth');
+
+$router->get('logout', 'UserController::logout');
 
 $router->get('upload', 'UserController::uploadForm');
 $router->post('upload', 'UserController::upload');
