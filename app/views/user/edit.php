@@ -18,35 +18,35 @@
                     <div class="mb-3">
                         <label for="firstName" class="form-label">First Name</label>
                         <!-- Populate the first name field -->
-                        <input type="text" class="form-control" id="firstName" name="knidl_first_name" value="<?= htmlspecialchars($user['knidl_first_name']) ?>" required>
+                        <input type="text" class="form-control" id="firstName" name="first_name" value="<?= htmlspecialchars($user['first_name']) ?>" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="lastName" class="form-label">Last Name</label>
                         <!-- Populate the last name field -->
-                        <input type="text" class="form-control" id="lastName" name="knidl_last_name" value="<?= htmlspecialchars($user['knidl_last_name']) ?>" required>
+                        <input type="text" class="form-control" id="lastName" name="last_name" value="<?= htmlspecialchars($user['last_name']) ?>" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <!-- Populate the email field -->
-                        <input type="email" class="form-control" id="email" name="knidl_email" value="<?= htmlspecialchars($user['knidl_email']) ?>" required>
+                        <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="gender" class="form-label">Gender</label>
                         <!-- Populate the gender field -->
-                        <select class="form-select" id="gender" name="knidl_gender" required>
-                            <option value="Male" <?= $user['knidl_gender'] === 'Male' ? 'selected' : '' ?>>Male</option>
-                            <option value="Female" <?= $user['knidl_gender'] === 'Female' ? 'selected' : '' ?>>Female</option>
-                            <option value="Other" <?= $user['knidl_gender'] === 'Other' ? 'selected' : '' ?>>Other</option>
+                        <select class="form-select" id="gender" name="gender" required>
+                            <option value="Male" <?= $user['gender'] === 'Male' ? 'selected' : '' ?>>Male</option>
+                            <option value="Female" <?= $user['gender'] === 'Female' ? 'selected' : '' ?>>Female</option>
+                            <option value="Other" <?= $user['gender'] === 'Other' ? 'selected' : '' ?>>Other</option>
                         </select>
                     </div>
 
                     <div class="mb-3">
                         <label for="address" class="form-label">Address</label>
                         <!-- Populate the address field -->
-                        <input type="text" class="form-control" id="address" name="knidl_address" value="<?= htmlspecialchars($user['knidl_address']) ?>" required>
+                        <input type="text" class="form-control" id="address" name="address" value="<?= htmlspecialchars($user['address']) ?>" required>
                     </div>
 
                     <div class="d-grid gap-2">

@@ -16,27 +16,27 @@
                 <!-- Display user details as text -->
                 <div class="mb-3">
                     <label class="form-label"><strong>First Name:</strong></label>
-                    <p><?= htmlspecialchars($user['knidl_first_name']) ?></p>
+                    <p><?= htmlspecialchars($user['first_name']) ?></p>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label"><strong>Last Name:</strong></label>
-                    <p><?= htmlspecialchars($user['knidl_last_name']) ?></p>
+                    <p><?= htmlspecialchars($user['last_name']) ?></p>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label"><strong>Email:</strong></label>
-                    <p><?= htmlspecialchars($user['knidl_email']) ?></p>
+                    <p><?= htmlspecialchars($user['email']) ?></p>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label"><strong>Gender:</strong></label>
-                    <p><?= htmlspecialchars($user['knidl_gender']) ?></p>
+                    <p><?= htmlspecialchars($user['gender']) ?></p>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label"><strong>Address:</strong></label>
-                    <p><?= htmlspecialchars($user['knidl_address']) ?></p>
+                    <p><?= htmlspecialchars($user['address']) ?></p>
                 </div>
 
                 <div class="d-grid gap-2">

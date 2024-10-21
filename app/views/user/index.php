@@ -39,11 +39,11 @@
                 <?php foreach ($users as $user): ?>
                     <tr>
                         <td><?= $user['id'] ?></td>
-                        <td><?= $user['knidl_last_name'] ?></td>
-                        <td><?= $user['knidl_first_name'] ?></td>
-                        <td><?= $user['knidl_email'] ?></td>
-                        <td><?= $user['knidl_gender'] ?></td>
-                        <td><?= $user['knidl_address'] ?></td>
+                        <td><?= $user['last_name'] ?></td>
+                        <td><?= $user['first_name'] ?></td>
+                        <td><?= $user['email'] ?></td>
+                        <td><?= $user['gender'] ?></td>
+                        <td><?= $user['address'] ?></td>
                         <td>
                             <a href="/user/<?= $user['id'] ?>" class="btn btn-sm btn-success">View</a>
                             <a href="/user/edit/<?= $user['id'] ?>" class="btn btn-sm btn-warning">Edit</a>

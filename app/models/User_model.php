@@ -10,40 +10,40 @@ class User_model extends Model {
 
 	public function get_last_ten_entries()
     {
-        $data = $this->db->table('knidl_users')->limit(10)->get()->result();
+        $data = $this->db->table('users')->limit(10)->get()->result();
         return $data;
     }
 
     public function getUsers()
     {
-        return $this->db->table('knidl_users')->get_all();
+        return $this->db->table('users')->get_all();
     }
 
     public function insert($data)
     {
         $data = array(
-            'knidl_last_name' => $data['lname'],
-            'knidl_first_name'  => $data['fname'],
-            'knidl_email' => $data['email'],
-            'knidl_gender' => $data['gender'],
-            'knidl_address' => $data['address']
+            'last_name' => $data['lname'],
+            'first_name'  => $data['fname'],
+            'email' => $data['email'],
+            'gender' => $data['gender'],
+            'address' => $data['address']
         );
 
-        $this->db->table('knidl_users')->insert($data);
+        $this->db->table('users')->insert($data);
     }
 
     public function getUser($id) {
-        return $this->db->table('knidl_users')->where('id', $id)->get();
+        return $this->db->table('users')->where('id', $id)->get();
     }
 
     public function update($id, $data) 
     {
-        return $this->db->table('knidl_users')->where('id', $id)->update($data);
+        return $this->db->table('users')->where('id', $id)->update($data);
     }
 
     public function delete($id)
     {
-        return $this->db->table('knidl_users')->where('id', $id)->delete();
+        return $this->db->table('users')->where('id', $id)->delete();
     }
 
 }

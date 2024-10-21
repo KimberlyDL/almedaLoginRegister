@@ -55,11 +55,11 @@ class UserController extends Controller
     public function patch($id)
     {
         $data = [
-			'knidl_first_name' => $_POST['knidl_first_name'],
-			'knidl_last_name' => $_POST['knidl_last_name'],
-			'knidl_email' => $_POST['knidl_email'],
-			'knidl_gender' => $_POST['knidl_gender'],
-			'knidl_address' => $_POST['knidl_address'],
+			'first_name' => $_POST['first_name'],
+			'last_name' => $_POST['last_name'],
+			'email' => $_POST['email'],
+			'gender' => $_POST['gender'],
+			'address' => $_POST['address'],
 		];
 	
 		if ($this->User_model->update($id, $data)) {
@@ -95,7 +95,7 @@ class UserController extends Controller
     public function logout()
     {
         $this->session->sess_destroy();
-        redirect('');
+        redirect('login');
     }
 
     public function sendAttatchedEmail($name, $recepient_email, $subject, $content, $path)

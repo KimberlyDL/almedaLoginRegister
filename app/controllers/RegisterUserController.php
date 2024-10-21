@@ -49,7 +49,7 @@ class RegisterUserController extends Controller
                 </head>
                 <body>
                     <div class='container'>
-                        <p>Dear {$client['knidl_name']},</p>
+                        <p>Dear {$client['name']},</p>
                         <p>We hope this message finds you well.</p>
                         <p>To complete your email verification, please use the following One-Time Password (OTP):</p>
                         <p class='otp'>{$otp}</p>
@@ -64,7 +64,7 @@ class RegisterUserController extends Controller
                 </html>
             ";
 
-            $this->sendEmailVerification($client['knidl_email'], $subject, $content);
+            $this->sendEmailVerification($client['email'], $subject, $content);
         
             $this->session->set_userdata('user_id_for_verification', $client['id']);
         
@@ -103,7 +103,7 @@ class RegisterUserController extends Controller
     public function sendEmailVerification($recepient_email,$subject,$content)
     {
        
-        $this->email->sender('deleon.kimberlynicole.9@gmail.com', 'Lavalust');
+        $this->email->sender('ellierosealmeda@gmail.com', 'Lavalust');
         $this->email->recipient($recepient_email);
         $this->email->subject($subject);
         $this->email->email_content($content,"html");

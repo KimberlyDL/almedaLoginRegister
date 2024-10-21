@@ -25,14 +25,14 @@ class AuthSessionController extends Controller
         // Fetch user by email
         $client = $this->Client->getUserByEmail($email);
 
-        if ($client && password_verify($password, $client['knidl_password'])) {
+        if ($client && password_verify($password, $client['password'])) {
 
             // Check if the account is unverified
-            if ($client['knidl_token'] == "unverified") {
+            if ($client['token'] == "unverified") {
                 $currentTime = date('Y-m-d H:i:s');
 
                 // Check if OTP has expired
-                if ($client['knidl_otp_expiry'] < $currentTime) {
+                if ($client['otp_expiry'] < $currentTime) {
                     // OTP has expired, regenerate a new OTP
                     $otp = $this->Client->regenerateOTP($client['id']);
 
@@ -49,7 +49,7 @@ class AuthSessionController extends Controller
                     </head>
                     <body>
                         <div class='container'>
-                            <p>Dear {$client['knidl_name']},</p>
+                            <p>Dear {$client['name']},</p>
                             <p>We hope this message finds you well.</p>
                             <p>To complete your email verification, please use the following One-Time Password (OTP):</p>
                             <p class='otp'>{$otp}</p>
@@ -81,8 +81,8 @@ class AuthSessionController extends Controller
                 }
             } else {
                 $this->session->set_userdata('id', $client['id']);
-                $this->session->set_userdata('name', $client['knidl_name']);
-                $this->session->set_userdata('email', $client['knidl_email']);
+                $this->session->set_userdata('name', $client['name']);
+                $this->session->set_userdata('email', $client['email']);
                 $data['email'] = $this->session->userdata('email');
 
                 redirect('upload');
@@ -93,14 +93,14 @@ class AuthSessionController extends Controller
 
         // If email or password is incorrect, redirect to login
         $data['error'] = 'Invalid log in';
-        redirect('', $data);
+        redirect('login', $data);
         return;
     }
 
     public function sendEmailVerification($recepient_email, $subject, $content)
     {
 
-        $this->email->sender('deleon.kimberlynicole.9@gmail.com', 'Lavalust');
+        $this->email->sender('ellierosealmeda@gmail.com', 'Lavalust');
         $this->email->recipient($recepient_email);
         $this->email->subject($subject);
         $this->email->email_content($content, "html");

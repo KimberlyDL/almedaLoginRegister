@@ -63,7 +63,7 @@ $database['main'] = array(
     'port'		=> '3306',
     'username'	=> 'root',
     'password'	=> '',
-    'database'	=> 'de_leon_kimberly_nicole',
+    'database'	=> 'almeda_ellie_rose',
     'charset'	=> 'utf8',
     'dbprefix'	=> '',
 );
